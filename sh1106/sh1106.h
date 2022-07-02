@@ -35,6 +35,7 @@ void init(void);
 
 private:
 void send_cmd();
+void send_data();
 };
 
 

@@ -31,11 +31,8 @@
 
 class sh1106{
 public:
-void init(void);
-
-private:
-void send_cmd();
-void send_data();
+void bus_init(i2c_inst_t * 	i2c, uint sda, uint scl);
+void oled_init(void);
 };
 
 

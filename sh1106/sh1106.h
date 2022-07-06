@@ -34,8 +34,8 @@ public:
 void bus_init(i2c_inst_t * 	i2c, uint sda, uint scl);
 void oled_init(void);
 
+void fill_screen(bool f_data);
 void clear_screen(void);
 };
-
 
 #endif

@@ -44,12 +44,16 @@ void sh1106::oled_init(void){
     i2c_write_blocking(I2C_PORT, SH1106_WRITE_ADDR, buf, 2, 0);
 }
 
-void sh1106::clear_screen(void){
-    uint8_t data[133] = {0x00};
+void sh1106::fill_screen(bool f_data){
+    uint8_t data[133] = {f_data};
     data[0] = 0x40;
     for(int page=0;page<MAX_PAGE_COUNT;page++){
         uint8_t buf[4]{0x00,SET_PAGE_ADDR+page,LOW_COLUMN_ADDR,HIGH_COLUMN_ADDR};
         i2c_write_blocking(I2C_PORT, SH1106_WRITE_ADDR, buf, 4, 0);
         i2c_write_blocking(I2C_PORT, SH1106_WRITE_ADDR, data, 133, 0);
     }
+}
+
+void sh1106::clear_screen(void){
+    fill_screen(0);
 }

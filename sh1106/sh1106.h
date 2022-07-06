@@ -33,6 +33,8 @@ class sh1106{
 public:
 void bus_init(i2c_inst_t * 	i2c, uint sda, uint scl);
 void oled_init(void);
+
+void clear_screen(void);
 };
 
 

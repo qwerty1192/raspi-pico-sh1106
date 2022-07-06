@@ -3,14 +3,15 @@
 #include "hardware/i2c.h"
 #include "sh1106.h"
 
-#define SDA_PIN 8
-#define SCL_PIN 9
+#define SDA_PIN 4
+#define SCL_PIN 5
 #define I2C_PORT i2c0
 sh1106 lcd;
 
 int main(){
     lcd.bus_init(I2C_PORT,SDA_PIN,SCL_PIN);
     lcd.oled_init();
+    lcd.clear_screen();
 /*
     uint8_t buf[8] = {0x00,0xAF};
     i2c_write_blocking(I2C_PORT, SH1106_WRITE_ADDR, buf, 2, 0);
@@ -41,4 +42,14 @@ void sh1106::oled_init(void){
 
     buf[1] = DISPLAY_ON;
     i2c_write_blocking(I2C_PORT, SH1106_WRITE_ADDR, buf, 2, 0);
+}
+
+void sh1106::clear_screen(void){
+    uint8_t data[133] = {0x00};
+    data[0] = 0x40;
+    for(int page=0;page<MAX_PAGE_COUNT;page++){
+        uint8_t buf[4]{0x00,SET_PAGE_ADDR+page,LOW_COLUMN_ADDR,HIGH_COLUMN_ADDR};
+        i2c_write_blocking(I2C_PORT, SH1106_WRITE_ADDR, buf, 4, 0);
+        i2c_write_blocking(I2C_PORT, SH1106_WRITE_ADDR, data, 133, 0);
+    }
 }

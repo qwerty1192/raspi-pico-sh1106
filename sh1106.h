@@ -31,11 +31,14 @@
 
 class sh1106{
 public:
-void bus_init(i2c_inst_t * 	i2c, uint sda, uint scl);
-void oled_init(void);
+void bus_init();
+void screen_init(void);
 
-void fill_screen(bool f_data);
+void fill_screen(void);
 void clear_screen(void);
+
+private:
+void _fillscreen(bool s_data);
 };
 
 #endif
